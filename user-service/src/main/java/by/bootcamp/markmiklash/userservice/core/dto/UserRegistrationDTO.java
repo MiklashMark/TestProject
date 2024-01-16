@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class UserRegistrationDTO {
     private String surname;
     private String name;

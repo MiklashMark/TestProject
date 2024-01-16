@@ -1,5 +1,7 @@
 package by.bootcamp.markmiklash.userservice.service.api;
 
-public interface IUserService {
+import by.bootcamp.markmiklash.userservice.core.dto.UserRegistrationDTO;
 
+public interface IUserService {
+    void save(UserRegistrationDTO userRegistrationDTO);
 }
