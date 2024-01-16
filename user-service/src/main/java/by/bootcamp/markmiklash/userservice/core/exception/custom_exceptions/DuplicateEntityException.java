@@ -1,8 +1,9 @@
 package by.bootcamp.markmiklash.userservice.core.exception.custom_exceptions;
 
 
-import by.itacademy.exceptions.enums.ErrorsTypes;
-import by.itacademy.exceptions.error.ErrorResponse;
+
+import by.bootcamp.markmiklash.userservice.core.enums.ErrorsTypes;
+import by.bootcamp.markmiklash.userservice.core.error.ErrorResponse;
 import lombok.Getter;
 import org.springframework.dao.DataIntegrityViolationException;
 

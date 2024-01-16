@@ -11,10 +11,12 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue
+    @Column(unique = true)
     private UUID uuid;
     private String surname;
     private String name;
     private String patronymic;
+    @Column(unique = true)
     private String mail;
     @Enumerated(EnumType.STRING)
     private UserRole role;
