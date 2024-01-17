@@ -1,11 +1,7 @@
 package by.bootcamp.markmiklash.userservice.core.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
 
-
-public enum ErrorFieldNames {
+public enum FieldNames {
     MAIL("mail"),
     PASSWORD("password"),
 
@@ -15,7 +11,7 @@ public enum ErrorFieldNames {
     ROLE("role");
     private final String field;
 
-    ErrorFieldNames(String field) {
+    FieldNames(String field) {
         this.field = field;
     }
 

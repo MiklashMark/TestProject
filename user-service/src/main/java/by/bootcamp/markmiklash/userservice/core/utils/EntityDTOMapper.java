@@ -1,10 +1,13 @@
 package by.bootcamp.markmiklash.userservice.core.utils;
 
+import by.bootcamp.markmiklash.userservice.core.dto.UserDTO;
 import by.bootcamp.markmiklash.userservice.core.dto.UserRegistrationDTO;
 import by.bootcamp.markmiklash.userservice.repository.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface EntityDTOMapper {
@@ -13,4 +16,9 @@ public interface EntityDTOMapper {
 
     @Mapping(target = "uuid", ignore = true)
     User userRegistrationDTOToUser(UserRegistrationDTO userRegistrationDTO);
+    UserDTO userEntityToUserDTO(User user);
+
+    default List<UserDTO> convertUserListToUserDTOList(List<User> users) {
+        return users.stream().map(INSTANCE :: userEntityToUserDTO).toList();
+    }
 }

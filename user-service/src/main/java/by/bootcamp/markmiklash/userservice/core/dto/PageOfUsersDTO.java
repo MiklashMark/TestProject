@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageOfUserDTO {
+public class PageOfUsersDTO {
     private int number;
     private int size;
     private int totalPages;
