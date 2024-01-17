@@ -8,6 +8,7 @@ import by.bootcamp.markmiklash.userservice.core.utils.EntityDTOMapper;
 import by.bootcamp.markmiklash.userservice.repository.api.ICrudUserRepository;
 import by.bootcamp.markmiklash.userservice.repository.entity.User;
 import by.bootcamp.markmiklash.userservice.service.api.IUserService;
+import by.bootcamp.markmiklash.userservice.service.validation.IValidationService;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,15 +19,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class UserService implements IUserService {
     private final ICrudUserRepository crudUserRepository;
+    private final IValidationService validationService;
 
-    public UserService(ICrudUserRepository crudUserRepository) {
+    public UserService(ICrudUserRepository crudUserRepository,
+                       IValidationService validationService) {
         this.crudUserRepository = crudUserRepository;
+        this.validationService = validationService;
     }
 
 
     @Override
     @Transactional
     public void save(UserRegistrationDTO userRegistrationDTO) {
+      validationService.validateRegistration(userRegistrationDTO);
         User user = EntityDTOMapper.INSTANCE.userRegistrationDTOToUser(userRegistrationDTO);
 
         try {

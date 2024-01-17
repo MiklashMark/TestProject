@@ -4,7 +4,7 @@ import by.bootcamp.markmiklash.userservice.core.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
 
 @Data
 @NoArgsConstructor
