@@ -17,8 +17,12 @@ public interface EntityDTOMapper {
     @Mapping(target = "uuid", ignore = true)
     User userRegistrationDTOToUser(UserRegistrationDTO userRegistrationDTO);
     UserDTO userEntityToUserDTO(User user);
+    User userDTOToUser(UserDTO userDTO);
 
-    default List<UserDTO> convertUserListToUserDTOList(List<User> users) {
+    default List<UserDTO> userListToUserDTOList(List<User> users) {
         return users.stream().map(INSTANCE :: userEntityToUserDTO).toList();
+    }
+    default List<User> userDTOListToUserList(List<UserDTO> userDTO) {
+        return userDTO.stream().map(INSTANCE :: userDTOToUser).toList();
     }
 }

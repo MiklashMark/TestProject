@@ -11,13 +11,20 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private UUID uuid;
+    @Column(nullable = false)
+
     private String surname;
+    @Column(nullable = false)
+
     private String name;
+    @Column(nullable = false)
+
     private String patronymic;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String mail;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
 

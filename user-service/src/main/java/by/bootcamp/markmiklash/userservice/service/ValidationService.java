@@ -52,7 +52,7 @@ public class ValidationService implements IValidationService {
             addError(validationDTO.getFieldName(), ErrorMessages.INCORRECT_FORMAT.getMessage());
         }
         if (validationDTO.getFieldValue().length() > validationDTO.getMaxLength()) {
-            addError(validationDTO.getFieldName(),ErrorMessages.REQUIRED_LENGTH.getMessage()+ String.valueOf(validationDTO.getMaxLength()));
+            addError(validationDTO.getFieldName(),ErrorMessages.REQUIRED_LENGTH.getMessage()+ validationDTO.getMaxLength());
         }
     }
 

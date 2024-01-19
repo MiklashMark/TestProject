@@ -1,0 +1,56 @@
+package by.bootcamp.markmiklash.userservice.service;
+
+import by.bootcamp.markmiklash.userservice.core.dto.UserRegistrationDTO;
+import by.bootcamp.markmiklash.userservice.core.enums.UserRole;
+import by.bootcamp.markmiklash.userservice.core.error.ErrorDetail;
+import by.bootcamp.markmiklash.userservice.core.error.StructuredErrorResponse;
+import by.bootcamp.markmiklash.userservice.core.exception.custom_exceptions.ValidationException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.testng.Assert;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+@ExtendWith(MockitoExtension.class)
+public class ValidationServiceTest {
+    @Mock
+    private StructuredErrorResponse structuredErrorResponse;
+
+    @InjectMocks
+    private ValidationService validationService;
+
+    @Test
+    public void validateSuccessfully() {
+        UserRegistrationDTO userRegistrationDTO = createValidRegistrationDTO();
+        assertDoesNotThrow(() -> validationService.validateRegistration(userRegistrationDTO));
+
+        verify(structuredErrorResponse, times(0)).addError(any(ErrorDetail.class));
+
+    }
+
+    @Test
+    public void validateInvalidData() {
+        UserRegistrationDTO userRegistrationDTO = createValidRegistrationDTO();
+        userRegistrationDTO.setName("Марк");
+        Assert.assertThrows(ValidationException.class, () -> validationService.validateRegistration(userRegistrationDTO));
+
+        verify(structuredErrorResponse, times(0)).addError(any(ErrorDetail.class));
+
+    }
+
+    public UserRegistrationDTO createValidRegistrationDTO() {
+        UserRegistrationDTO user = new UserRegistrationDTO();
+        user.setName("Mark");
+        user.setSurname("Miklash");
+        user.setPatronymic("Vladislavovich");
+        user.setMail("markmiklash@gmail.com");
+        user.setRole(UserRole.ADMIN);
+        return user;
+    }
+}

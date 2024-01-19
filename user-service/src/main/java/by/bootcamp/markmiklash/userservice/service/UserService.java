@@ -61,22 +61,6 @@ public class UserService implements IUserService {
             return buildPageOfUserDTO(usersPage);
         }
 
-
-    private void handleDataIntegrityViolationException(DataIntegrityViolationException e) {
-        Throwable cause = e.getCause();
-
-        if (cause instanceof ConstraintViolationException constraintViolationException) {
-            if (constraintViolationException.getMessage().contains("mail")) {
-                throw new DuplicateEntityException(ErrorMessages.ALREADY_REGISTERED.getMessage(), e);
-            }
-        }
-    }
-
-    private void handleDataAccessException(DataAccessException e) {
-        throw new InternalServerException(ErrorMessages.SERVER_ERROR.getMessage(), e);
-    }
-
-
     private Page<User> getUsers(Pageable pageable) {
         Sort sort = Sort.by(Sort.Direction.ASC, FieldNames.MAIL.getField());
         Pageable pageableWithSort = PageRequest.of(
@@ -108,10 +92,23 @@ public class UserService implements IUserService {
         pageOfUsersDTO.setLast(usersPage.isLast());
 
         List<UserDTO> usersDTO = EntityDTOMapper.INSTANCE
-                .convertUserListToUserDTOList(usersPage.getContent());
+                .userListToUserDTOList(usersPage.getContent());
         pageOfUsersDTO.setContent(usersDTO);
 
         return pageOfUsersDTO;
     }
 
+    private void handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        Throwable cause = e.getCause();
+
+        if (cause instanceof ConstraintViolationException constraintViolationException) {
+            if (constraintViolationException.getMessage().contains("mail")) {
+                throw new DuplicateEntityException(ErrorMessages.ALREADY_REGISTERED.getMessage(), e);
+            }
+        }
+    }
+
+    private void handleDataAccessException(DataAccessException e) {
+        throw new InternalServerException(ErrorMessages.SERVER_ERROR.getMessage(), e);
+    }
 }

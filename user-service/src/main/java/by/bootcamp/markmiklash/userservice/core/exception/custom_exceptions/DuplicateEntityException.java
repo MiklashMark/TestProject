@@ -17,4 +17,9 @@ public class DuplicateEntityException extends DataIntegrityViolationException {
         errorResponse.setMessage(message);
         errorResponse.setLogRef(ErrorsTypes.ERROR.getMessage());
     }
+
+    public DuplicateEntityException(String msg, ErrorResponse errorResponse) {
+        super(msg);
+        this.errorResponse = errorResponse;
+    }
 }
