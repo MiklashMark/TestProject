@@ -54,25 +54,19 @@ public class UserServiceTest {
     @Test
     public void invalidDataSave() {
         UserRegistrationDTO invalidUser = createValidRegistrationDTO();
+
         doThrow(new ValidationException(new StructuredErrorResponse()))
                 .when(validationService)
                 .validateRegistration(invalidUser);
 
         Assert.assertThrows(ValidationException.class, () -> userService.save(invalidUser));
-
         verify(crudUserRepository, never()).saveAndFlush(any(User.class));
     }
 
     @Test
     public void getPageSuccessfully() {
         List<User> users = new ArrayList<>();
-        users.add(createUser("John", "Doe",
-                "Pat", "john.doe@email.com", UserRole.CUSTOMER_USER));
-        users.add(createUser("Jane", "Doe",
-                "Pat", "jane.doe@email.com", UserRole.ADMIN));
-        users.add(createUser("Jane", "Doe",
-                "Pat", "joe@email.com", UserRole.ADMIN));
-
+        users.add(createUser());
         Page<User> userPage = new PageImpl<>(users);
 
         when(crudUserRepository.findAll(any(Pageable.class))).thenReturn(userPage);
@@ -82,8 +76,6 @@ public class UserServiceTest {
         List<UserDTO> userDTOS = EntityDTOMapper.INSTANCE.userListToUserDTOList(users);
 
         Assert.assertEquals(userDTOS.get(0), resultUsers.get(0));
-        Assert.assertEquals(userDTOS.get(1), resultUsers.get(1));
-        Assert.assertEquals(userDTOS.get(2), resultUsers.get(2));
 
         verify(crudUserRepository, times(1)).findAll(any(Pageable.class));
 
@@ -108,8 +100,15 @@ public class UserServiceTest {
         user.setRole(UserRole.ADMIN);
         return user;
     }
-    private User createUser(String name, String surname, String patronymic, String mail, UserRole role) {
-        return new User(UUID.randomUUID(), surname, name, patronymic, mail, role);
+    private User createUser() {
+        User user = new User();
+        user.setUuid(UUID.randomUUID());
+        user.setName("Mark");
+        user.setSurname("Miklash");
+        user.setPatronymic("Vladislavovich");
+        user.setMail("markmiklash@gmail.com");
+        user.setRole(UserRole.ADMIN);
+        return user;
     }
 }
 

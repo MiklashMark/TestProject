@@ -1,0 +1,8 @@
+13:42:42.121 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+13:43:38.368 [http-nio-8080-exec-1] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+13:43:38.368 [http-nio-8080-exec-1] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Duplicate entry 'bimaafafsa@gmail.com' for key 'users.UK_jhck7kjdogc7yia7qamc89ypv'
+13:43:38.377 [http-nio-8080-exec-1] WARN  by.bootcamp.markmiklash.userservice.service.UserService - Attempted to register with duplicate email
+13:44:36.889 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+13:44:51.238 [http-nio-8080-exec-1] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+13:44:51.238 [http-nio-8080-exec-1] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Duplicate entry 'bimaafafsa@gmail.com' for key 'users.UK_jhck7kjdogc7yia7qamc89ypv'
+13:44:51.246 [http-nio-8080-exec-1] WARN  by.bootcamp.markmiklash.userservice.service.UserService - Attempted to register with duplicate email

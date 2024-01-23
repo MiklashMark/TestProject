@@ -18,4 +18,5 @@ public class PageOfUsersDTO {
     private boolean first;
     private boolean last;
     private List<UserDTO> content;
+
 }

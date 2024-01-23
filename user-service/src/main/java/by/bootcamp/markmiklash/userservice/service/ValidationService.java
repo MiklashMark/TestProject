@@ -15,32 +15,34 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ValidationService implements IValidationService {
-    private StructuredErrorResponse errorsResponse;
+    private final ThreadLocal<StructuredErrorResponse> errorsResponseThreadLocal;
     private static final int MAX_MAIL_LENGTH = 50;
     private static final int MAX_NAME_LENGTH = 20;
     private static final int MAX_SURNAME_LENGTH = 40;
     private static final int MAX_PATRONYMIC_LENGTH = 40;
-
-    public ValidationService(StructuredErrorResponse errorsResponse) {
-        this.errorsResponse = errorsResponse;
+    public ValidationService() {
+        errorsResponseThreadLocal = ThreadLocal
+                .withInitial(StructuredErrorResponse::new);
     }
 
     @Override
     public void validateRegistration(UserRegistrationDTO user) {
-        errorsResponse = new StructuredErrorResponse();
+        try {
+            validateField(new ValidationDTO(user.getMail(), FieldNames.MAIL.getField(),
+                    ValidationPattern.EMAIL.getPattern(), MAX_MAIL_LENGTH));
+            validateField(new ValidationDTO(user.getName(), FieldNames.NAME.getField(),
+                    ValidationPattern.FIO.getPattern(), MAX_NAME_LENGTH));
+            validateField(new ValidationDTO(user.getSurname(), FieldNames.SURNAME.getField(),
+                    ValidationPattern.FIO.getPattern(), MAX_SURNAME_LENGTH));
+            validateField(new ValidationDTO(user.getPatronymic(), FieldNames.PATRONYMIC.getField(),
+                    ValidationPattern.FIO.getPattern(), MAX_PATRONYMIC_LENGTH));
+            validateUserRole(user.getRole());
 
-        validateField(new ValidationDTO(user.getMail(), FieldNames.MAIL.getField(),
-                ValidationPattern.EMAIL.getPattern(), MAX_MAIL_LENGTH));
-        validateField(new ValidationDTO(user.getName(), FieldNames.NAME.getField(),
-                ValidationPattern.FIO.getPattern(), MAX_NAME_LENGTH));
-        validateField(new ValidationDTO(user.getSurname(), FieldNames.SURNAME.getField(),
-                ValidationPattern.FIO.getPattern(), MAX_SURNAME_LENGTH));
-        validateField(new ValidationDTO(user.getPatronymic(), FieldNames.PATRONYMIC.getField(),
-                ValidationPattern.FIO.getPattern(), MAX_PATRONYMIC_LENGTH));
-        validateUserRole(user.getRole());
-
-        if (!errorsResponse.getErrors().isEmpty()) {
-            throw new ValidationException(errorsResponse);
+            if (!errorsResponseThreadLocal.get().getErrors().isEmpty()) {
+                throw new ValidationException(errorsResponseThreadLocal.get());
+            }
+        } finally {
+            errorsResponseThreadLocal.remove();
         }
     }
 
@@ -52,7 +54,8 @@ public class ValidationService implements IValidationService {
             addError(validationDTO.getFieldName(), ErrorMessages.INCORRECT_FORMAT.getMessage());
         }
         if (validationDTO.getFieldValue().length() > validationDTO.getMaxLength()) {
-            addError(validationDTO.getFieldName(),ErrorMessages.REQUIRED_LENGTH.getMessage()+ validationDTO.getMaxLength());
+            addError(validationDTO.getFieldName(), ErrorMessages.REQUIRED_LENGTH.getMessage()
+                    + validationDTO.getMaxLength());
         }
     }
 
@@ -62,8 +65,8 @@ public class ValidationService implements IValidationService {
         }
     }
 
-    private void addError(String field, String message) {
+    public void addError(String field, String message) {
         ErrorDetail error = new ErrorDetail(field, message);
-        errorsResponse.addError(error);
+        errorsResponseThreadLocal.get().addError(error);
     }
 }
