@@ -18,3 +18,9 @@
 17:31:19.276 [http-nio-8080-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Duplicate entry 'bimaafafsa@mail.com' for key 'users.UK_jhck7kjdogc7yia7qamc89ypv'
 17:31:19.276 [http-nio-8080-exec-2] WARN  by.bootcamp.markmiklash.userservice.service.UserService - Attempted to register with duplicate email
 17:32:08.095 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+18:03:07.690 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+18:03:12.655 [http-nio-8080-exec-2] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+18:03:12.655 [http-nio-8080-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Duplicate entry 'bimaafafsa@mail.com' for key 'users.UK_jhck7kjdogc7yia7qamc89ypv'
+18:03:12.662 [http-nio-8080-exec-2] WARN  by.bootcamp.markmiklash.userservice.service.UserService - Attempted to register with duplicate email
+18:04:01.073 [http-nio-8080-exec-9] WARN  by.bootcamp.markmiklash.userservice.service.ValidationService - Error added during validation. Field: mail, Message: Incorrect field format..
+18:04:01.073 [http-nio-8080-exec-9] WARN  by.bootcamp.markmiklash.userservice.service.ValidationService - User registration validation failed: {}

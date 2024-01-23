@@ -2,23 +2,18 @@ package by.bootcamp.markmiklash.userservice.service;
 
 import by.bootcamp.markmiklash.userservice.core.dto.UserRegistrationDTO;
 import by.bootcamp.markmiklash.userservice.core.enums.UserRole;
-import by.bootcamp.markmiklash.userservice.core.error.ErrorDetail;
 import by.bootcamp.markmiklash.userservice.core.error.StructuredErrorResponse;
 import by.bootcamp.markmiklash.userservice.core.exception.custom_exceptions.ValidationException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class ValidationServiceTest {
