@@ -4,7 +4,7 @@
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="%clr{%d{HH:mm:ss.SSS}}{FATAL=red, ERROR=red, WARN=yellow, INFO=blue, DEBUG=green} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <File name="File" fileName="Log4j2.log" append="true">
+        <File name="File" fileName="user-service/Log4j2.log" append="true">
             <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
