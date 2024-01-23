@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+  db:
+    build: mysql
+    image: test_mysql:1.0.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: users
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - test_ntwrk
+
+  user-service:
+    build: user-service
+    image: user-service:2.0.1
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - test_ntwrk
+  proxy:
+    build: proxy
+    image: proxy:1.0.1
+    ports:
+      - "80:80"
+    networks:
+      - test_ntwrk
+networks:
+  test_ntwrk:
+      name: test_ntwrk

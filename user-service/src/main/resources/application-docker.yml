@@ -1,0 +1,5 @@
+spring:
+    url: jdbc:mysql://db:3306/users
+    password: root
+    username: root
+

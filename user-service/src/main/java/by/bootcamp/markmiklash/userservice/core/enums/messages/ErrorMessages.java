@@ -14,9 +14,11 @@ public enum ErrorMessages {
     FIELD_IS_EMPTY("field is empty"),
     DATA_NOT_FOUND("No results found for this search."),
     UNKNOWN_ERROR("Unknown error occurred. Please, contact the administrator."),
-    REQUIRED_LENGTH("Symbols in field no more than ");
-    private final String message;
+    REQUIRED_LENGTH("Symbols in field no more than "),
+    ACCESS_ERROR("This authorization token is prohibited from making requests to this address"),
+    AUTHENTICATION_ERROR("To complete a request to this address, you must transfer an authorization token.");
 
+    private final String message;
     ErrorMessages(String message) {
         this.message = message;
     }

@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 public class UserRestControllerTest {
-
     @Mock
     private IUserService userService;
 
@@ -57,7 +56,7 @@ public class UserRestControllerTest {
 
         String userJson = mapper.writeValueAsString(registrationDTO);
 
-        mockMvc.perform(post("/api/users/registration")
+        mockMvc.perform(post("/users/registration")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(userJson))
                 .andExpect(status().isCreated());
@@ -72,7 +71,7 @@ public class UserRestControllerTest {
                 1, 10, 1, true, true, userDTOS);
 
         when(userService.getPage(any(Pageable.class))).thenReturn(pageOfUsersDTO);
-        mockMvc.perform(get("/api/users/"))
+        mockMvc.perform(get("/users"))
                 .andExpect(status().isOk());
         verify(userService, times(1)).getPage(any(Pageable.class));
     }

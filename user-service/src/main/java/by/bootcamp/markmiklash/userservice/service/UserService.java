@@ -9,7 +9,6 @@ import by.bootcamp.markmiklash.userservice.core.enums.messages.LogMessages;
 import by.bootcamp.markmiklash.userservice.core.exception.custom_exceptions.DuplicateEntityException;
 import by.bootcamp.markmiklash.userservice.core.exception.custom_exceptions.EntityNotFoundException;
 import by.bootcamp.markmiklash.userservice.core.exception.custom_exceptions.InternalServerException;
-import by.bootcamp.markmiklash.userservice.core.exception.custom_exceptions.ValidationException;
 import by.bootcamp.markmiklash.userservice.core.utils.EntityDTOMapper;
 import by.bootcamp.markmiklash.userservice.repository.api.ICrudUserRepository;
 import by.bootcamp.markmiklash.userservice.repository.entity.User;
@@ -50,8 +49,6 @@ public class UserService implements IUserService {
             User user = EntityDTOMapper.INSTANCE.userRegistrationDTOToUser(userRegistrationDTO);
             crudUserRepository.saveAndFlush(user);
             log.info(LogMessages.USER_REGISTERED_SUCCESSFULLY.getMessage(), user.getMail());
-        } catch (ValidationException e) {
-            log.warn(LogMessages.USER_REGISTRATION_VALIDATION_FAILED.getMessage(), e.getMessage());
         } catch (DataIntegrityViolationException e) {
             handleDataIntegrityViolationException(e);
         } catch (DataAccessException e) {
